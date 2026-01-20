@@ -2,3 +2,4 @@
 /.venv
 .idea
 /Docs
+/chroma_langchain_db

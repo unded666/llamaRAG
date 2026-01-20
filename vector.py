@@ -18,15 +18,15 @@ if add_documents:
     ids = []
     for i, row in df.iterrows():
         doc = Document(
-            page_content = row['Title'] + " " + row['review'],
+            page_content = row['Title'] + " " + row['Review'],
             metadata = {
-                'date': row['date'],
-                'rating': row['rating']
+                'date': row['Date'],
+                'rating': row['Rating']
             },
             id = str(i)
         )
         documents.append(doc)
-        ids.append(str(row['review_id']))
+        ids.append(str(i))
 
 vector_store = Chroma(
     collection_name = 'restaurant_reviews',
@@ -35,7 +35,8 @@ vector_store = Chroma(
 )
 
 if add_documents:
-    vector_store.add_documents(documents = documents, ids = ids)
+    vector_store.add_documents(documents = documents,
+                               ids = ids)
 
 retriever = vector_store.as_retriever(
     search_kwargs = {"k": 5}
